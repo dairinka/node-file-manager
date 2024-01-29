@@ -1,0 +1,12 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "type":"module",
+  "scripts": {
+    "start": "node src/start.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
