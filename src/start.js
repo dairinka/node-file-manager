@@ -1,17 +1,18 @@
-import { argv } from "node:process";
-import { createInterface } from 'node:readline/promises';
+import { cwd, chdir } from "node:process";
 import { homedir } from 'node:os';
-import { defineCommand } from './defineCommand.js';
+
+import { createReadLine } from './createReadLine.js';
+import { USERNAME } from './utility/userName.js';
 
 const runFM = async () => {
-  const userArgs = argv.slice(2);
-  const userName = userArgs.filter(el => el.startsWith('--username'))[0].slice(11);
-  console.log(`Welcome to the File Manager, ${userName}!`);
-  console.log(`You are currently in ${homedir()}`)
 
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  process.chdir(homedir());
+
+  console.log(`Welcome to the File Manager, ${USERNAME}!`);
+  console.log(`You are currently in ${process.cwd()}`)
+  
   try {
-    defineCommand(rl, userName);
+    createReadLine();
   } catch {
     console.log('Operation failed');
   }
