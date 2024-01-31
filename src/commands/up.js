@@ -2,8 +2,6 @@
 // up
 
 const up = () => {
-
   process.chdir('..');
-  console.log("Now you are in ", process.cwd());
 }
 export { up };
