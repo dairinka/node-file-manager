@@ -54,7 +54,7 @@ const defineCommand = async (data) => {
         break;
       case "rm":
         if (dataArr.length !== 2) throw Error("arg");
-        rm(dataArr[1]);
+        await rm(dataArr[1]);
         break;
       case "os":
         if (dataArr.length !== 2) throw Error("arg");
@@ -66,11 +66,11 @@ const defineCommand = async (data) => {
         break;
       case "compress":
         if (dataArr.length !== 3) throw Error("arg");
-        compress(dataArr[1], dataArr[2])
+        await compress(dataArr[1], dataArr[2])
         break;
       case "decompress":
         if (dataArr.length !== 3) throw Error("arg");
-        decompress(dataArr[1], dataArr[2])
+        await decompress(dataArr[1], dataArr[2])
         break;
       default:
         throw Error("arg");
