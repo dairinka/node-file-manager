@@ -16,9 +16,9 @@ const add = async (newFileName) => {
   }
   try {
     await writeFile(newFileName, '');
-    console.log('\x1b[32mFile was successfully added\x1b[0m')
-  } catch {
-    messageErrorOperationFailed();
+    console.log('\x1b[32mFile was successfully added\x1b[0m');
+  } catch(err) {
+    messageErrorOperationFailed(err);
   }
   
 }

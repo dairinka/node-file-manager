@@ -3,6 +3,7 @@
 import { access } from 'node:fs/promises';
 import { rename } from "node:fs/promises";
 import { messageErrorOperationFailed } from '../utility/messages/messageErrorOperationFailed.js';
+import { extname } from 'node:path';
 
 const rn = async(pathToFile, newFileName) => {
   try {
@@ -20,6 +21,11 @@ const rn = async(pathToFile, newFileName) => {
       console.log(`\x1b[31mOperation failed:\x1b[0m File ${newFileName} already exist`);
       return;      
     }
+  }
+
+  if(!extname(newFileName)){
+    messageErrorOperationFailed({message:"the file must have an extension"});
+    return;
   }
 
 

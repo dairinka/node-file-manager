@@ -16,24 +16,26 @@ import { rn } from "./commands/rn.js";
 import { up } from "./commands/up.js";
 // import { Worker } from 'node:worker_threads';
 import { chdir, cwd } from 'node:process';
+import { createWorker } from './utility/createWorker.js';
+import { messageForChangeLocation } from './utility/messages/messageForChangeLocation.js';
+import {messageErrorOperationFailed} from './utility/messages/messageErrorOperationFailed.js';
+import { messageSuccessful } from './utility/messages/messageSuccessful.js';
 
 
-const defineCommand = (data) => {
+const defineCommand = async(data) => {
   const dataArr = data.split(' ');
       try {
         const __dirname = join(dirname(fileURLToPath(import.meta.url)), "commands");
         switch (dataArr[0]) {
           case "up":
             if (dataArr.length > 1) throw Error("arg");
-            // await createWorker(join(__dirname, 'up.js'));
             up();
+            messageForChangeLocation();
             break;
           case "cd":
             if (dataArr.length !== 2) throw Error("arg");
-           
-            //await createWorker(join(__dirname, 'cd.js'), dataArr[1]);
             cd(dataArr[1]);
-            console.log("Now you are in", process.cwd());
+            messageForChangeLocation();
             break;
           case "ls":
             if (dataArr.length > 1) throw Error("arg");
@@ -41,23 +43,24 @@ const defineCommand = (data) => {
             break;
           case "cat":
             if (dataArr.length !== 2) throw Error("arg");
+            //await createWorker(join(__dirname, 'cat.js'), dataArr[1])
             cat(dataArr[1]);
             break;
           case "add":
             if (dataArr.length !== 2) throw Error("arg");
-            add(dataArr[1]);
+            await add(dataArr[1]);
             break;
           case "rn":
             if (dataArr.length !== 3) throw Error("arg");
-            rn(dataArr[1], dataArr[2]);
+            await rn(dataArr[1], dataArr[2]);
             break;
           case "cp":
             if (dataArr.length !== 3) throw Error("arg");
-            cp(dataArr[1], dataArr[2]);
+            await cp(dataArr[1], dataArr[2]);
             break;
           case "mv":
             if (dataArr.length !== 3) throw Error("arg");
-            mv(dataArr[1], dataArr[2])
+            await mv(dataArr[1], dataArr[2])
             break;
           case "rm":
             if (dataArr.length !== 2) throw Error("arg");
@@ -83,8 +86,8 @@ const defineCommand = (data) => {
             throw Error("arg");
         }
       } catch (err) {
-        if (err.message === "arg") console.log('Invalid input');
-        else { console.log("Operation failed", err.message) };
+        if (err.message === "arg") console.log('\x1b[31mInvalid input\x1b[0m');
+        else { messageErrorOperationFailed(err)};
       }
 }
 export {defineCommand};

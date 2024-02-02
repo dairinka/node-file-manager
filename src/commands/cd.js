@@ -3,7 +3,7 @@
 import { parse } from 'path';
 
 const cd = (path) => {
-  if (!isCorrectRootDir(path)) return process.chdir(path + '/');
+ // if (!isCorrectRootDir(path)) return process.chdir(path + '/');
   process.chdir(path);
 }
 

@@ -8,9 +8,9 @@ import { messageErrorOperationFailed } from '../utility/messages/messageErrorOpe
 const cat = (pathToFile) => {
   let emptyFile = true;
 
-  const readableStream = createReadStream(pathToFile);
+  const readStream = createReadStream(pathToFile);
 
-  readableStream.on('data', (chunk) => {
+  readStream.on('data', (chunk) => {
     stdout.write(chunk + '\n', (err) => {
       if (err) messageErrorOperationFailed();
       emptyFile = false;
@@ -18,12 +18,12 @@ const cat = (pathToFile) => {
     });
   })
 
-  readableStream.on('error', (err) => {
+  readStream.on('error', (err) => {
     messageErrorOperationFailed(err);
-    readableStream.destroy();
+    readStream.close();
   })
 
-  readableStream.on('end', () => {
+  readStream.on('end', () => {
     if (emptyFile) {
       console.log('\x1b[90mEmpty file\x1b[0m');
     }

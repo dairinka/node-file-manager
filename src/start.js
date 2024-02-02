@@ -12,7 +12,7 @@ const runFM = async () => {
   console.log(`\x1b[34mYou are currently in ${process.cwd()}\x1b[0m`)
   
   try {
-    createReadLine();
+    await createReadLine();
   } catch {
     console.log('\x1b[31mOperation failed:\x1b[0m');
   }
