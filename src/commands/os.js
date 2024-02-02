@@ -9,17 +9,27 @@
 // os --username
 // Get CPU architecture for which Node.js binary has compiled and print it to console
 // os --architecture
+import { EOL, cpus, homedir, userInfo , arch} from 'node:os';
 const os = (arg) => {
-  switch(arg){
+  switch (arg) {
     case "--EOL":
+      console.log(`The EOL of your operation system in unicode is ${EOL.charCodeAt(0)}`)
+      console.log(`And it looks like => ${EOL}`)
       break;
     case "--cpus":
+      const userCpus = cpus();
+      const cpusInfo = userCpus.map(({model, speed}) => ({'Model': model, 'Clock rate': speed}));
+      console.log(`Total CPUs = ${userCpus.length}`);
+      console.table(cpusInfo);
       break;
     case "--homedir":
+      console.log(`Your homedir is ${homedir()}`)
       break;
     case "--username":
+      console.log(`Your username is ${userInfo().username}`);
       break;
     case "--architecture":
+      console.log(`CPU architecture is ${arch()}`);
       break;
     default:
       throw Error;
