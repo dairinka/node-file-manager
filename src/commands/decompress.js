@@ -5,8 +5,8 @@ import { createWriteStream } from 'node:fs';
 import { createBrotliDecompress } from 'node:zlib';
 import { basename, join } from 'node:path';
 import { access } from 'node:fs/promises';
-import { messageErrorOperationFailed } from '../utility/messages/messageErrorOperationFailed.js';
 import { pipeline } from 'node:stream/promises';
+import { messageErrorOperationFailed } from '../utility/messages/messageErrorOperationFailed.js';
 import { messageSuccessful } from '../utility/messages/messageSuccessful.js';
 
 const decompress = async (pathToArchiveFile, pathToDestination) => {
